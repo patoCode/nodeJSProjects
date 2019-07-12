@@ -1,0 +1,16 @@
+<nav class="deep-purple darken-4">
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo"><i class="material-icons">cloud</i>Sticky[APP]</a>
+    <ul class="right hide-on-med-and-down">
+      {{#if user}}
+        <li><a href="/notes/add"><i class="material-icons">note_add</i></a></li>
+        <li><a href="/notes"><i class="material-icons">list</i></a></li>
+        <li><a href="/user/logout"><i class="material-icons">lock_outline</i></a></li>
+      {{else}}
+        <li><a href="/user/signin"><i class="material-icons">lock_open</i></a></li>
+        <li><a href="/user/signup"><i class="material-icons">person_add</i></a></li>
+      {{/if}}
+
+    </ul>
+  </div>
+</nav>

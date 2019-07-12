@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FinteresT</title>
+
+    <%- include('partials/head') %>
+
+</head>
+<body>
+	<%- include('partials/menu') %>
+
+	<div class="container">
+		<div class="row">
+			<% images.forEach(function(image){ %>
+
+
+			<!-- <div class="col s4 m6 animated flipInY">
+				<div class="card small">
+					<div class="card-image">
+						<img src="<%= image.path%>">
+						<span class="card-title"><%= image.title%></span>
+					</div>
+					<div class="card-content">
+						<p><%=image.description%> - <%= format(image.created_at)%></p>
+					</div>
+					<div class="card-action">
+						<a href="image/<%= image._id%>">IMAGE</a>
+					</div>
+				</div>
+			</div> -->
+
+
+			<div class="col s6 m6">
+				<div class="card animated flipInY">
+					<div class="card-image waves-effect waves-block waves-light">
+						<img src="<%= image.path%>" class="activator">
+					</div>
+					<div class="card-content">
+						<span class="card-title activator grey-text text-darken-4">
+							<%= image.title%><i class="material-icons right">more_vert</i>
+						</span>
+						<p>
+							<a href="image/<%= image._id%>" class="waves-effect waves-light btn-large pink darken-1">
+								<i class="material-icons left">aspect_ratio</i>
+								Detalle
+							</a>
+						</p>
+					</div>
+					<div class="card-reveal">
+						<span class="card-title grey-text text-darken-4">
+							<%= image.title%><i class="material-icons right">close</i>
+						</span>
+						<p><%=image.description%> - <%= format(image.created_at)%></p>
+					</div>
+				</div>
+			</div>
+
+			<% }) %>
+		</div>
+
+	</div>
+</body>
