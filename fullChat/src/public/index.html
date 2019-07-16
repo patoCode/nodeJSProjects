@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+	<title>FULL CHAT</title>
+	<!-- BOOSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css">
+	<script src="https://kit.fontawesome.com/61d9b07b85.js"></script>
+	<!-- CUSTOM -->
+	<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+	<nav class="navbar navbar-light bg-warning">
+		<a href="/" class="navbar-brand mx-auto">JS CHAT</a>
+	</nav>
+
+	<div class="col-md-4 mt-5 mx-auto" id="nickWrap">
+			<div class="card">
+				<div class="card-header">
+					<h3>Ingresa tu nombre de usuario</h3>
+				</div>
+				<p id="nick-error"></p>
+				<div class="card-body">
+					<form action="" id="nick-form">
+						<input type="text" id="nick-name" class="form-control">
+						<button class="btn btn-warning btn-block" type="submit">
+							<i class="fas fa-location-arrow"></i> Access
+						</button>
+					</form>
+				</div>
+			</div>
+	</div>
+
+	<div class="container" id="contenWrap">
+		<div class="row mt-4">
+		<!-- CHAT SECTION -->
+		<div class="col-md-6 offset-md-1">
+			<div class="card">
+				<!-- header -->
+				<div class="card-header">
+					<h4>let's chat</h4>
+				</div>
+				<!-- body chat -->
+				<div class="card-body" id="chat">
+				</div>
+
+				<form action="" class="card-footer" id="message-form">
+					<div class="input-group">
+						<input type="text" id="message" class="form-control">
+						<div class="input-group-append">
+							<button class="btn btn-warning" type="submit">
+								<i class="fas fa-location-arrow"></i> Send
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- END CHAT SECTION -->
+		<!-- NICKNAME -->
+		<div class="col-md-3">
+			<div class="card">
+				<div class="card-header">
+					Users
+				</div>
+				<div class="card-body">
+					<div id="usernames"></div>
+				</div>
+			</div>
+		</div>
+		<!-- END NICKNAME -->
+</div>
+	</div>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+	<script src="/js/main.js" charset="utf-8"></script>
+</body>
+</html>
