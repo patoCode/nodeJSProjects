@@ -2,22 +2,22 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card card-body">
-        <form action="/links/add" method="post">
+        <form action="/links/edit/{{cargo.ID_CARGO}}" method="post">
             <div class="form-group">
-                <input type="text" class="form-control" name="title" placeholder="Titulo" autofocus>
+                <input type="text" value="{{cargo.NOMBRE_UNIDAD}}" class="form-control" name="title" placeholder="Titulo" autofocus>
             </div>
 
             <div class="form-group">
-                <input type="text" class="form-control" name="url" placeholder="URL://" autofocus>
+                <input type="text" value="" class="form-control" name="url" placeholder="URL://" autofocus>
             </div>
 
             <div class="form-group">
-                <textarea name="description" rows="2" class="form-control" placeholder="Descripcion"></textarea>
+                <textarea name="description" rows="2" class="form-control" placeholder="Descripcion">{{cargo.NOMBRE_UNIDAD}}</textarea>
             </div>
 
             <div class="form-group">
               <button class="btn btn-info" type="submit">
-                Enviar
+                SAVE
               </button>
             </div>
 

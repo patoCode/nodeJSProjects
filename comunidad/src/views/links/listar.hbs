@@ -1,0 +1,32 @@
+<div class="container p-4">
+  <div class="row">
+
+    {{#each cargos}}
+      <div class="col-md-4 mt-2">
+        <div class="card">
+            <div class="card-body">
+              <a href="">
+                <h3 class="card-title text-uppercase">
+                  {{NOMBRE_UNIDAD}}
+                </h3>
+              </a>
+              <p class="m-2">
+                {{ESTADO}}
+              </p>
+              <br>
+              <div class="badge badge-primary text-wrap right">{{timeago FECHA_REG }}</div>
+              <a href="/links/delete/{{ID_CARGO}}" class="btn btn-block btn-danger">Delete</a>
+              <a href="/links/edit/{{ID_CARGO}}" class="btn btn-block btn-secondary">Edit</a>
+            </div>
+        </div>
+      </div>
+    {{else}}
+      <div class="col-md-4 mx-auto">
+        <div class="card card-body text-center">
+          <p>No hay cargos</p>
+          <a href="/links/add" class="btn btn-warning">Crear Cargo</a>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
