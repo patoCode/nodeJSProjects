@@ -1,10 +1,8 @@
 package main
 
-/* Importamos las dependencias */
 import (
-	"fmt"	
-	"github.com/streadway/amqp"
-	"log"		
+	"log"
+	"amqp"
 )
 
 func failOnError(err error, msg string) {
@@ -14,9 +12,6 @@ func failOnError(err error, msg string) {
 }
 
 func main() {
-
-	/* INIT RABBIT */
-	fmt.Println ( "Conectando a RabbitMQ ..." )
 	conn, err := amqp.Dial("amqp://admin:Password123@159.65.220.217:5672")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
@@ -26,7 +21,7 @@ func main() {
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
-		"hello", // name
+		"eabmhdel", // name
 		false,   // durable
 		false,   // delete when unused
 		false,   // exclusive
@@ -34,19 +29,26 @@ func main() {
 		nil,     // arguments
 	)
 	failOnError(err, "Failed to declare a queue")
-	
-	body := "Hello World!"
-	err = ch.Publish(
-		"",     // exchange
-		q.Name, // routing key
-		false,  // mandatory
-		false,  // immediate
-		amqp.Publishing {
-			ContentType: "text/plain",
-			Body:        []byte(body),
-		})
-	log.Printf(" [x] Sent %s", body)
-	failOnError(err, "Failed to publish a message")
 
-	/* FIN RABBIT */
+	msgs, err := ch.Consume(
+		q.Name, // queue
+		"",     // consumer
+		true,   // auto-ack
+		false,  // exclusive
+		false,  // no-local
+		false,  // no-wait
+		nil,    // args
+	)
+	failOnError(err, "Failed to register a consumer")
+
+	forever := make(chan bool)
+
+	go func() {
+		for d := range msgs {
+			log.Printf("Received a message: %s", d.Body)
+		}
+	}()
+
+	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+	<-forever
 }
