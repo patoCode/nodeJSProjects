@@ -23,31 +23,31 @@ func failOnError(err error, msg string) {
 
 func main() {
 
-
+	var registro string
 	var err error
 
-	/* Nos conectamos a la BBDD */
+	/* BBDD */
 	db, err = sql.Open("mysql", "root:@/test")
 	if err != nil {
 		panic(err)
 	}
 
 	// Execute the query
-	results, err := db.Query("SELECT titulo FROM videos")
+	results, err := db.Query("SELECT titulo FROM videos WHERE id_genero = 1")
 	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
+		panic(err.Error())
 	}
 
 	for results.Next() {
-
 		var titulo string
-		// for each row, scan the result into our tag composite object
 		err = results.Scan(&titulo)
+
+		
 		if err != nil {
-			panic(err.Error()) // proper error handling instead of panic in your app
+			panic(err.Error())
 		}
-		// and then print out the tag's Name attribute
-		log.Printf(titulo)
+		registro = registro + ";" + titulo
+		fmt.Printf(registro)
 	}
 
 
@@ -62,7 +62,7 @@ func main() {
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
-		"eabmhdel", // name
+		"comedias", // name
 		false,   // durable
 		false,   // delete when unused
 		false,   // exclusive
@@ -71,7 +71,7 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 	
-	body := "Hello Fernando q novelas!"
+	body := registro
 	err = ch.Publish(
 		"",     // exchange
 		q.Name, // routing key
