@@ -136,7 +136,7 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	q_accion, err := ch.QueueDeclare(
+	/*q_accion, err := ch.QueueDeclare(
 		"accion", // name
 		false,   // durable
 		false,   // delete when unused
@@ -144,7 +144,7 @@ func main() {
 		false,   // no-wait
 		nil,     // arguments
 	)
-	failOnError(err, "Failed to declare a queue")
+	failOnError(err, "Failed to declare a queue")*/
 
 
 	body := cadena_body
@@ -162,16 +162,29 @@ func main() {
 			Body:        []byte(body),
 		})
 
-	err = ch.Publish(
-		"",     // exchange
-		q_accion.Name, // routing key
-		false,  // mandatory
-		false,  // immediate
-		amqp.Publishing {
-			DeliveryMode: amqp.Persistent,
-			ContentType: "text/plain",
-			Body:        []byte(body_accion),
-		})
+	
+
+		err = ch.ExchangeDeclare(
+			"grupo_yolo",   // name
+			"fanout", // type
+			true,     // durable
+			false,    // auto-deleted
+			false,    // internal
+			false,    // no-wait
+			nil,      // arguments
+		  )
+
+
+		  err = ch.Publish(
+			"grupo_yolo",     // exchange
+			"", // routing key
+			false,  // mandatory
+			false,  // immediate
+			amqp.Publishing {
+				DeliveryMode: amqp.Persistent,
+				ContentType: "text/plain",
+				Body:        []byte(body_accion),
+			})
 
 	log.Println(" [x] Sent COMEDIA %s", body)
 	log.Println(" [x] Sent ACTION %s", body_accion)
