@@ -11,9 +11,10 @@
 							<input type="text" name="title" placeholder="Titulo" class="form-control">
 						</div>
 						<div class="form-group">
-							<textarea name="description" rows="3" placeholder="Descripcion" class="form-control"></textarea>
+							<textarea name="description" rows="3" placeholder="Descripcion"
+								class="form-control"></textarea>
 						</div>
-						<button type="submit" class="btn btn-primary btn-block">
+						<button type="submit" class="btn btn-primary btn-block" id="registrar">
 							Agregar
 						</button>
 					</form>
@@ -39,9 +40,11 @@
 						<td><%= taskList[i].description %></td>
 						<td>
 							<a href="/turn/<%= taskList[i]._id %>"
-								class="btn <%= taskList[i].status ? 'btn-success':'btn-dark' %>">Done</a>
+								class="btn <%= taskList[i].status ? 'btn-success':'btn-dark' %>"
+								id="_status_<%= taskList[i]._id %>">Done</a>
 							<a href="/delete/<%= taskList[i]._id %>" class="btn btn-danger">Delete</a>
-							<a href="/edit/<%= taskList[i]._id %>" class="btn btn-info">Edit</a>
+							<a href="/edit/<%= taskList[i]._id %>" class="btn btn-info"
+								id="<%= taskList[i]._id %>">Edit</a>
 						</td>
 					</tr>
 					<% }%>

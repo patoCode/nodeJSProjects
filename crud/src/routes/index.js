@@ -1,44 +1,68 @@
-const express = require('express');
-const router = express.Router();
-const Task = require('../models/Task');
+const express = require('express')
+const router = express.Router()
+const Task = require('../models/Task')
+const mongoose = require('mongoose')
 
 router.get('/', async (req, res) => {
-	const taskList = await Task.find();
-	res.render('index', { taskList });
-});
+	const taskList = await Task.find()
+	res.render('index', { taskList })
+})
+router.get('/all', async (req, res) => {
+	const taskList = await Task.find()
+	res.send(taskList)
+})
 
 router.post('/add', async (req, res) => {
 	const newTask = new Task(req.body)
-	await newTask.save();
-	res.redirect('/');
-});
+	await newTask.save()
+	res.redirect('/')
+})
 
 router.get('/turn/:id', async (req, res) => {
-	const { id } = req.params;
-	const task = await Task.findById(id);
-	task.status = !task.status;
-	await task.save();
-	res.redirect('/');
-});
+	const { id } = req.params
+	const task = await Task.findById(id)
+	task.status = !task.status
+	await task.save()
+	res.redirect('/')
+})
 
+router.post('/task/add', async (req, res) => {
+	const newTask = new Task(req.body)
+	await newTask.save()
+	return res.send(newTask)
+})
+
+router.get('/task/turn/:id', async (req, res) => {
+	const { id } = req.params
+	if (!mongoose.Types.ObjectId.isValid(id))
+		return res.status(400).send("Invalid object id")
+	const task = await Task.findById(id)
+	if (!task) return res.status(404).send("Not Found")
+	return res.send(task)
+})
+router.get('/task/delete/:id', async (req, res) => {
+	const { id } = req.params
+	await Task.remove({ _id: id })
+	return res.send("DELETED")
+})
 
 router.get('/edit/:id', async (req, res) => {
-	const { id } = req.params;
-	const task = await Task.findById(id);
-	res.render('edit', {task});
-});
+	const { id } = req.params
+	const task = await Task.findById(id)
+	res.render('edit', { task })
+})
 
 router.post('/edit/:id', async (req, res) => {
-	const { id } = req.params;
-	await Task.update({_id:id}, req.body);
-	res.redirect('/');
-});
+	const { id } = req.params
+	await Task.update({ _id: id }, req.body)
+	res.redirect('/')
+})
 
 
 router.get('/delete/:id', async (req, res) => {
-	const { id } = req.params;
-	await Task.remove({_id: id});
-	res.redirect('/');
-});
+	const { id } = req.params
+	await Task.remove({ _id: id })
+	res.redirect('/')
+})
 
-module.exports = router;
+module.exports = router

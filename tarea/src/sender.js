@@ -5,10 +5,10 @@ const amqp = require('amqplib/callback_api')
 const port = 9001
 
 const opt = { credentials: require('amqplib')
-              .credentials.plain('admin', 'Password123') };
+              .credentials.plain('guest', 'guest') };
 
-amqp.connect('amqp://159.65.220.217:15672/', opt, (err, conn) => {
-   console.log("data: ", conn)
+amqp.connect('amqp://localhost:5672/', opt, (err, conn) => {
+   //console.log("data: ", conn)
    conn.createChannel( (err, channel) => {
 
    })
